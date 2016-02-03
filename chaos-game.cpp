@@ -26,6 +26,7 @@ void delete_point() {
 }
 
 void waiter(int delay = 0) {
+  start_of_waiter:
   char c = waitKey(delay);
   switch (c) {
     case 'f':
@@ -36,6 +37,11 @@ void waiter(int delay = 0) {
       break;
     case 'x':
       delete_point();
+      break;
+    default:
+      if (delay == 0) {
+        goto start_of_waiter;
+      }
       break;
   }
 }

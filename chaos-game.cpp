@@ -14,6 +14,7 @@ const int display_every = (int)1e2;
 
 vector<Point> point_set;
 int r100 = 50;
+bool colouring_on = true;
 
 void display_fractal();
 void display_points();
@@ -30,6 +31,10 @@ void waiter(int delay = 0) {
   char c = waitKey(delay);
   switch (c) {
     case 'f':
+      display_fractal();
+      break;
+    case 'c':
+      colouring_on = !colouring_on;
       display_fractal();
       break;
     case 'q':
@@ -54,13 +59,36 @@ void create_fractal(Mat &img, Point p) {
   RNG rng;
   double r = r100 / 100.0;
 
+  vector<Vec3b> colour_palette;
+  colour_palette.push_back(Vec3b(173, 35, 35));
+  colour_palette.push_back(Vec3b(42, 75, 215 ));
+  colour_palette.push_back(Vec3b(29, 105, 20 ));
+  colour_palette.push_back(Vec3b(129, 74, 25 ));
+  colour_palette.push_back(Vec3b(129, 38, 192 ));
+  colour_palette.push_back(Vec3b(160, 160, 160 ));
+  colour_palette.push_back(Vec3b(129, 197, 122 ));
+  colour_palette.push_back(Vec3b(157, 175, 255 ));
+  colour_palette.push_back(Vec3b(41, 208, 208 ));
+  colour_palette.push_back(Vec3b(255, 146, 51 ));
+  colour_palette.push_back(Vec3b(255, 238, 51 ));
+  colour_palette.push_back(Vec3b(233, 222, 187 ));
+  colour_palette.push_back(Vec3b(255, 205, 243 ));
+
+
   for ( int i = 0 ; i < max_iterations ; i++ ) {
-    Point towards = point_set[rng.uniform(0, point_set.size())];
+    int selection = rng.uniform(0, point_set.size());
+    Point towards = point_set[selection];
     p = r*p + (1-r)*towards;
 
-    img.at<Vec3b>(p)[0] = 255;
-    img.at<Vec3b>(p)[1] = 255;
-    img.at<Vec3b>(p)[2] = 255;
+    if ( colouring_on && selection < colour_palette.size() ) {
+      img.at<Vec3b>(p)[0] = colour_palette[selection][0];
+      img.at<Vec3b>(p)[1] = colour_palette[selection][1];
+      img.at<Vec3b>(p)[2] = colour_palette[selection][2];
+    } else {
+      img.at<Vec3b>(p)[0] = 255;
+      img.at<Vec3b>(p)[1] = 255;
+      img.at<Vec3b>(p)[2] = 255;
+    }
 
     if ( i % display_every == 0 ) {
       imshow(window_name, img);
@@ -117,6 +145,7 @@ int main( int argc, char** argv ) {
           "\tLeft Click: Add new point\n"
           "\tKeypress x: Delete latest point\n"
           "\tKeypress f: Run the chaos game\n"
+          "\tKeypress c: Toggle colouring\n"
           "\tKeypress q: Quit\n";
 
   setMouseCallback(window_name, on_mouse);

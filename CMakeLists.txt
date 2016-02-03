@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project( chaos-game )
+find_package( OpenCV REQUIRED )
+add_executable( chaos-game chaos-game )
+target_link_libraries( chaos-game ${OpenCV_LIBS} )

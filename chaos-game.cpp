@@ -66,6 +66,10 @@ void create_fractal(Mat &img, Point p) {
     return;
   }
 
+  if ( display_every < 1 ) {
+    display_every = 1;
+  }
+
   RNG rng;
   double r = r100 / 100.0;
 

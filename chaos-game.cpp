@@ -115,6 +115,7 @@ void display_fractal() {
   Mat display_image(600, 600, CV_8UC3, Scalar(0,0,0));
 
   if ( point_set.size() < 1 ) {
+    waiter();
     return;
   }
 

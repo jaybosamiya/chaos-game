@@ -88,7 +88,6 @@ void create_fractal(Mat &img, Point p) {
   colour_palette.push_back(Vec3b(233, 222, 187 ));
   colour_palette.push_back(Vec3b(255, 205, 243 ));
 
-
   for ( int i = 0 ; i < max_iterations ; i++ ) {
     int selection = rng.uniform(0, point_set.size());
     Point towards = point_set[selection];

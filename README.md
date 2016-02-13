@@ -27,6 +27,7 @@ Usage
 ```
 
 + Left Click: Add new point
++ Right Click: Define starting point
 + Keypress x: Delete latest point
 + Keypress f: Run the chaos game
 + Keypress c: Toggle colouring

@@ -114,12 +114,6 @@ void display_fractal() {
     return;
   }
 
-  Point centre(0,0);
-  for ( vector<Point>::iterator it = point_set.begin() ; it != point_set.end() ; it++ ) {
-    centre += *it;
-  }
-  centre = centre * (1.0/point_set.size());
-
   create_fractal(display_image, centre);
 
   waiter();

@@ -19,6 +19,7 @@ bool colouring_on = true;
 
 void display_fractal();
 void display_points();
+void recalculate_centre();
 
 void delete_point() {
   if ( point_set.size() >= 1 ) {

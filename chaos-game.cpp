@@ -9,8 +9,8 @@ using namespace cv;
 using namespace std;
 
 const char * window_name = "Chaos game (c) Jay Bosamiya";
-const int max_iterations = (int)1e5;
-const int display_every = (int)1e2;
+int max_iterations = (int)1e5;
+int display_every = (int)1e2;
 
 vector<Point> point_set;
 int r100 = 50;
@@ -150,6 +150,7 @@ int main( int argc, char** argv ) {
 
   setMouseCallback(window_name, on_mouse);
   createTrackbar("r*100: ", window_name, &r100, 100, NULL);
+  createTrackbar("Draw speed: ", window_name, &display_every, 100, NULL);
   display_points();
 
   return 0;

@@ -13,6 +13,7 @@ int max_iterations = (int)1e5;
 int display_every = (int)1e2;
 
 vector<Point> point_set;
+Point centre;
 int r100 = 50;
 bool colouring_on = true;
 
@@ -24,6 +25,14 @@ void delete_point() {
     point_set.pop_back();
   }
   display_points();
+}
+
+void recalculate_centre() {
+  centre = Point(0,0);
+  for ( vector<Point>::iterator it = point_set.begin() ; it != point_set.end() ; it++ ) {
+    centre += *it;
+  }
+  centre = centre * (1.0/point_set.size());
 }
 
 void waiter(int delay = 0) {
@@ -42,6 +51,7 @@ void waiter(int delay = 0) {
       break;
     case 'x':
       delete_point();
+      recalculate_centre();
       break;
     default:
       if (delay == 0) {
@@ -122,6 +132,7 @@ void display_points() {
     circle(display_image, *it, 5, Scalar(255,255,255), -1, 8);
   }
   if ( point_set.size() >= 1 ) {
+    circle(display_image, centre, 5, Scalar(0,255,0), -1, 8);
     circle(display_image, *(point_set.rbegin()), 5, Scalar(0,0,255), -1, 8);
   }
 
@@ -130,12 +141,14 @@ void display_points() {
 }
 
 void on_mouse(int event, int x, int y, int, void*) {
-  if( event != EVENT_LBUTTONDOWN )
-    return;
-
-  point_set.push_back(Point(x, y));
-
-  display_points();
+  if( event == EVENT_LBUTTONDOWN ) {
+    point_set.push_back(Point(x, y));
+    recalculate_centre();
+    display_points();
+  } else if ( event == EVENT_RBUTTONDOWN ) {
+    centre = Point(x, y);
+    display_points();
+  }
 }
 
 int main( int argc, char** argv ) {
@@ -143,6 +156,7 @@ int main( int argc, char** argv ) {
 
   cout << "Usage:\n"
           "\tLeft Click: Add new point\n"
+          "\tRight Click: Define starting point\n"
           "\tKeypress x: Delete latest point\n"
           "\tKeypress f: Run the chaos game\n"
           "\tKeypress c: Toggle colouring\n"

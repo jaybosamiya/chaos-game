@@ -24,6 +24,7 @@ void delete_point() {
   if ( point_set.size() >= 1 ) {
     point_set.pop_back();
   }
+  recalculate_centre();
   display_points();
 }
 
@@ -51,7 +52,6 @@ void waiter(int delay = 0) {
       break;
     case 'x':
       delete_point();
-      recalculate_centre();
       break;
     default:
       if (delay == 0) {

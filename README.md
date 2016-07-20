@@ -14,6 +14,11 @@ Screenshots
 
 ![](images/screenshot4.jpg)
 
+Video Demo
+----------
+
+It has come to my notice that Yu-Jie Lin has made a nice video showing the features of this program, which can be seen on youtube [here](https://www.youtube.com/watch?v=9gt72c9ni5w).
+
 How it works
 ------------
 
